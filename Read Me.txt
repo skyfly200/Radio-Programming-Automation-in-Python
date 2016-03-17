@@ -1,0 +1,48 @@
+Radio Programing automation in Winamp
+by Skyler Fly-Wilson
+This script automates the playback of scheduled programing, for radio stations using Winamp. You can schedule shows, playlists and drops as well as setup a default playlist. The schedule is setup in the schedule.xml file.
+
+Here is the heirarchy of the schedule xml file.
+
+The schedule tag encloses the event tags.
+There are four types of event tags, show, playlist, drop and default.
+
+Here is a show tag. It defines a show named example, scheduling the file stream.pls, Sunday from 11 AM to 3 PM and a priority of 2.
+The file can be any audio or playlist file, including streams.
+Day codes can be writen as a list of three letter abreviations, a specific date can be writen as month/day/year or All for any day
+Time values start and end are in 24 hour time
+The show with the lowest priority level will take presidence
+<show name="example">
+	<file path="stream.pls" />
+	<day code="Sun"/>
+	<time start="11:00" end="15:00" />
+	<priority>1</priority>
+</show>
+
+Playlist tags are pretty much the same as a show
+<playlist name="Noon-Midnight">
+	<file path="All.m3u" />
+	<day code="All"/>
+	<time start="12:00" end="24:00" />
+	<priority>2</priority>
+</playlist>
+
+Drop tags play when a playlist or the default is running
+The file tag contains a path to the drop or playlist of drops
+The day tag works the same as in show an playlist tags
+The freq tag sets the frequency in minutes for a drop to play
+<drop name="clips" >
+	<file path="clips.m3u" />
+	<day code="All"/>
+	<freq>10</freq>
+</drop>
+
+Default tags just contain a file tag, with the path for a default playlist file.
+<default>
+	<file path="animals.m3u" />
+</default>
+
+These are the steps to setup the automation script
+1: setup up the schedule xlm file 
+2: use task scheduler to schedule the automation.bat script to run on startup
+3: start the automation.bat script

@@ -1,0 +1,217 @@
+---Automation Script Events Log File---
+21:50 Tue 03/08/16 :
+show - Way High Perspectives < 19:00 - 22:00 > 
+22:00 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:00 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:02 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:02 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:04 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:04 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:06 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:06 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:08 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:08 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:10 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:10 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:13 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:13 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:17 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:17 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:22 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:22 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:27 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:27 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:28 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:28 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+22:31 Tue 03/08/16 :
+drop - Main Clips < Every 2 Min > 
+22:31 Tue 03/08/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+00:26 Wed 03/09/16 :
+show - test < 00:00 - 01:00 > 
+00:28 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:28 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:31 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:31 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:35 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:35 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:38 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:38 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:41 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:41 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:42 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:42 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:44 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:44 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:44 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:45 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+00:46 Wed 03/09/16 :
+drop - Main Clips < Every 2 Min > 
+00:46 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:26 Wed 03/09/16 :
+show - test < 00:00 - 02:27 > 
+02:29 Wed 03/09/16 :
+show - test < 00:00 - 02:29 > 
+02:29 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:31 Wed 03/09/16 :
+drop - Main Clips < Every 10 Min > 
+10:31 Wed 03/09/16 :
+default - animals.m3u
+10:39 Wed 03/09/16 :
+show - test < 10:00 - 10:40 > 
+10:40 Wed 03/09/16 :
+drop - Main Clips < Every 10 Min > 
+10:40 Wed 03/09/16 :
+default - animals.m3u
+10:59 Wed 03/09/16 :
+show - Amalgamation Station < 11:00 - 12:00 > 
+11:26 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+11:30 Wed 03/09/16 :
+drop - Main Clips < Every 10 Min > 
+11:30 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+11:40 Wed 03/09/16 :
+drop - Main Clips < Every 10 Min > 
+11:40 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+11:53 Wed 03/09/16 :
+drop - Main Clips < Every 10 Min > 
+11:53 Wed 03/09/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+01:12 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+01:13 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+01:23 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+01:23 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+01:30 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+01:30 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+01:40 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+01:41 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+01:52 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+01:52 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:01 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:01 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:14 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:14 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:21 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:22 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:30 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:30 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:40 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:40 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+02:51 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+02:51 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+03:00 Thu 03/10/16 :
+drop - Main Clips < Every 10 Min > 
+03:00 Thu 03/10/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+12:45 Thu 03/10/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+10:09 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:12 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:12 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:14 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:14 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:16 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:16 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:21 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:21 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:23 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:23 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:28 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:28 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:29 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:29 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:32 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:32 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+10:38 Fri 03/11/16 :
+drop - Main Clips < Every 1 Min > 
+10:38 Fri 03/11/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+09:54 Tue 03/15/16 :
+drop - Main Clips < Every 1 Min > 
+09:54 Tue 03/15/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 
+09:57 Tue 03/15/16 :
+drop - Main Clips < Every 1 Min > 
+09:57 Tue 03/15/16 :
+playlist - Midnight-Noon < 00:00 - 12:00 > 

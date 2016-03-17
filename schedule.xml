@@ -1,0 +1,52 @@
+<schedule>
+	<show name="Amalgamation Station">
+		<file path="kwhr.m3u" />
+		<day code="Wed"/>
+		<time start="12:00" end="14:00" />
+		<priority>0</priority>
+	</show>
+	<show name="The Network">
+		<file path="glr.pls" />
+		<day code="Sun"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+	<show name="Way High Perspectives">
+		<file path="kwhr.m3u" />
+		<day code="Tue"/>
+		<time start="19:00" end="22:00" />
+		<priority>0</priority>
+	</show>
+	<show name="Will n' Emy's Peace and Love Show">
+		<file path="kwhr.m3u" />
+		<day code="Fri"/>
+		<time start="7:00" end="10:00" />
+		<priority>0</priority>
+	</show>
+	<show name="test">
+		<file path="kwhr.pls" />
+		<day code="Wed"/>
+		<time start="10:00" end="10:40" />
+		<priority>2</priority>
+	</show>
+	<playlist name="Noon-Midnight">
+		<file path="All.m3u" />
+		<day code="All"/>
+		<time start="12:00" end="24:00" />
+		<priority>1</priority>
+	</playlist>
+	<playlist name="Midnight-Noon">
+		<file path="All.m3u" />
+		<day code="All"/>
+		<time start="00:00" end="12:00" />
+		<priority>1</priority>
+	</playlist>
+	<drop name="Main Clips" >
+		<file path="RC.m3u" />
+		<day code="All"/>
+		<freq>1</freq>
+	</drop>
+	<default>
+		<file path="animals.m3u" />
+	</default>
+</schedule>
