@@ -295,7 +295,8 @@ class schedule():
 		# set default priority and event
 		priority = 100
 		
-		idleWait = 30 # seconds to wait for idle before running playlists or drops
+		idleWaitTime = 30 # seconds to wait for idle before running playlists or drops
+		idleWait = False
 		
 		# if there is a scheduled show, check if show is not already playing, then play it
 		if self.currentShow is not None:
@@ -310,13 +311,15 @@ class schedule():
 				self.actionLog.logAction(self.currentShow, self.now)
 			
 		# if there are no current shows, the computer is idle and winamp is playing, then look for other current events
-		elif winampCtrl.status() == 1 and get_idle_duration() >= idleWait:
+		elif winampCtrl.status() == 1 and not idleWait or get_idle_duration() >= idleWaitTime:
 			# check if there are any current drops to play
 			if len(self.currentDrops) > 0:
-				# if playing a song wait for current song to end
+				# wait for current song to end
 				# skips if playing a stream
-				timeLeft = winampCtrl.timeleft()
-				if timeLeft > 0: time.sleep(timeLeft - 1)
+				print "\nplaying drop after song"
+				self.waitforend()
+				
+				# play all current drops
 				for drop in self.currentDrops:
 					# make sure shuffle is on
 					if winampCtrl.getshuffle() == 0: 
@@ -326,8 +329,8 @@ class schedule():
 					# print drop info and log the event
 					print "\nDrop: " + drop.get('name'), " Frequency: ", drop.find('freq').text, "Min"
 					self.actionLog.logAction(drop, self.now)
-					# wait for song to end before continuing
-					time.sleep(winampCtrl.timeleft() - 1)
+					# wait for drop to end before continuing
+					self.waitforend()
 					
 			# if there is a current playlist make sure its not already playing
 			if self.currentPlaylist is not None and self.actionLog.lastLog() != self.actionLog.makeLog(self.currentPlaylist, ""):
@@ -353,6 +356,13 @@ class schedule():
 			else:
 				print "\nError no default available"
 				self.actionLog.logRaw("Error no default available", self.now)
+	
+	# wait for current song to end
+	def waitforend(self): 
+		left = winampCtrl.timeleft()
+		while left > 2:
+			left = winampCtrl.timeleft()
+		time.sleep(1)
 	
 	# print out all the properties of an event
 	def printRawEvent(self, event):

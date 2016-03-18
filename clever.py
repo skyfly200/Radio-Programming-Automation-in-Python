@@ -1,6 +1,11 @@
 import sys, string, os
 import subprocess
 
+# import libraries and create classes for silencing stdout
+import contextlib, sys
+class DummyFile(object):
+    def write(self, x): pass
+
 def playpause():
 	return subprocess.subprocess.call('clever.exe playpause', shell=True)
 	
@@ -69,7 +74,7 @@ def clear():
 	return subprocess.call('clever.exe clear', shell=True)
 
 def status():
-	return subprocess.call('clever.exe status', shell=True)
+	return subprocess.call('clever.exe status', shell=True, stdout=subprocess.PIPE)
 	
 def getplpos():
 	return subprocess.call('clever.exe getplpos', shell=True)
@@ -81,7 +86,7 @@ def swrepeat():
 	return subprocess.call('clever.exe swrepeat', shell=True)
 	
 def getshuffle():
-	return subprocess.call('clever.exe getshuffle', shell=True)
+	return subprocess.call('clever.exe getshuffle', shell=True, stdout=subprocess.PIPE)
 	
 def getrepeat():
 	return subprocess.call('clever.exe getrepeat', shell=True)
@@ -90,7 +95,7 @@ def position():
 	return subprocess.call('clever.exe position', shell=True)
 	
 def timeleft():
-	return subprocess.call('clever.exe timeleft', shell=True)
+	return subprocess.call('clever.exe timeleft', shell=True, stdout=subprocess.PIPE)
 	
 def songlength():
 	return subprocess.call('clever.exe songlength', shell=True)
