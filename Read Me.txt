@@ -27,9 +27,8 @@ Playlist tags are pretty much the same as a show
 	<priority>2</priority>
 </playlist>
 
-Drop tags play when a playlist or the default is running
-The file tag contains a path to the drop or playlist of drops
-The day tag works the same as in show an playlist tags
+Drop tags play when a playlist or default event is running
+The file and day tags work the same as with shows and playlists
 The freq tag sets the frequency in minutes for a drop to play
 <drop name="clips" >
 	<file path="clips.m3u" />
@@ -44,5 +43,5 @@ Default tags just contain a file tag, with the path for a default playlist file.
 
 These are the steps to setup the automation script
 1: setup up the schedule xlm file 
-2: use task scheduler to schedule the automation.bat script to run on startup
-3: start the automation.bat script
+2: in task scheduler, schedule automation.bat to run on startup and every 10-60 minutes
+3: run the automation.bat script
