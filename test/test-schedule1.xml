@@ -1,0 +1,26 @@
+<schedule>
+  <show name="Test Show 0">
+		<file path="kwhr.m3u" />
+		<day code="8/3/16"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+	<show name="Test Show 1">
+		<file path="kwhr.m3u" />
+		<day code="8/4/16"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+  <show name="Test Show 2">
+		<file path="kwhr.m3u" />
+		<day code="8/5/16"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+  <show name="Test Show 3">
+		<file path="kwhr.m3u" />
+		<day code="8/6/16, 8/7/16"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+</schedule>

@@ -1,6 +1,6 @@
 import clever as winampCtrl
 import xml.etree.ElementTree as xmlProcessor
-import os.path, re, random, time, win32api
+import os.path, re, random, time#, win32api
 from ctypes import Structure, windll, c_uint, sizeof, byref
 
 # class for manipulating the log file
@@ -43,8 +43,6 @@ class log(object):
 	def logAction(self, action, time, arg=''):
 		# create a log string
 		log = self.makeLog(action, arg)
-		# sync the time object to the current time
-		time.sync()
 		# write the action to the log 
 		with open(self.logPath, 'a') as f:
 			f.write(time.getDatetimeStr() + " :\n" + log)
@@ -58,7 +56,10 @@ class log(object):
 	def lastLog(self):
 		log = False
 		with open(self.logPath) as f:
-			log = f.readlines()[-1]
+			try:
+				log = f.readlines()[-1] + f.readlines()[-1][5:]
+			except:
+				log = ""
 		return log
 	
 	# return the timestamp of the last log in the log file
@@ -135,6 +136,22 @@ class datetime():
 		self.dateStr = time.strftime("%m/%d/%y")
 		self.datetimeStr = self.timeStr + " " + self.dayStr + " " + self.dateStr
 		
+	# set time manualy for testing 
+	def set(self, day = None, hour = None, minute = None, second = None, date = None):
+		if hour == None: hour = 0
+		self.timeHours = int(hour)
+		if minute == None: minute = 0
+		self.timeMinutes = int(minute)
+		if second == None: second = 0
+		self.timeSeconds = int(second)
+		self.timeInMinutes = (self.timeHours * 60) + self.timeMinutes
+		self.timeStr = '{}:{}'.format(str(self.timeHours).zfill(2), str(self.timeMinutes).zfill(2))
+		if day == None: day = time.strftime("%a")
+		self.dayStr = day
+		if date == None: date = time.strftime("%m/%d/%y")
+		self.dateStr = date
+		self.datetimeStr = '{} {} {}'.format(self.timeStr, self.dayStr, self.dateStr)
+
 	# get functions for datetime member variables
 	def getHours(self): 
 		return self.timeHours
@@ -160,11 +177,10 @@ class datetime():
 	# check if a date code matches today
 	def checkDay(self, dayCode):
 		# define regular expresions for difrent date code formats
-		listEx = re.compile(r'([0-9a-z/]{3,9}, ?)+[0-9a-z/]{3,9}', re.IGNORECASE)
-		todayEx = re.compile(r'\A' + self.dayStr + '[a-z]*', re.IGNORECASE)
-		
+		listEx = re.compile(r'([0-9a-z/]{3,9}, ?)+[0-9a-z/]{3,9}', re.I)
+
 		# if code matched todays weekday
-		if todayEx.match(dayCode):
+		if re.match(self.dayStr, dayCode, re.I):
 			return True
 		
 		# if todays date
@@ -183,16 +199,14 @@ class datetime():
 			
 		return False
 
+
 class schedule():
 	# instantiate a schedule object
 	def __init__(self, xmlFile):
+		# init testing flag to 0 (0 is OFF, 1 is ON, 2 holds control ops)
+		self.testing = 0
 		# parse the xml file
-		root = self.parseXML(xmlFile)
-		# Look for events in the schedule xml structure
-		self.shows = root.findall('show')
-		self.playlists = root.findall('playlist')
-		self.drops = root.findall('drop')
-		self.defaults = root.findall('default')
+		self.update(xmlFile);
 		# initialize lists for current events
 		self.currentShow = None
 		self.currentPlaylist = None
@@ -200,10 +214,9 @@ class schedule():
 		# create a datetime object for checking the current time
 		self.now = datetime()
 		# create new log objects to log actions and errors
-		self.actionLog = log("autoLog.txt", "Automation Actions")
-		self.errorLog = log("errorLog.txt", "Automation Errors")
-		# number of minutes to start a show early 
-		self.earlyStart = 1
+		self.actionLog = log("logs/autoLog.txt", "Automation Actions")
+		self.errorLog = log("logs/errorLog.txt", "Automation Errors")
+		
 
 	# update the schedule object with provided xml file
 	def update(self, xmlFile):
@@ -214,6 +227,21 @@ class schedule():
 		self.playlists = root.findall('playlist')
 		self.drops = root.findall('drop')
 		self.defaults = root.findall('default')
+
+	# get test mode 
+	def getTestMode(self):
+		return self.testing
+
+	# set test mode 
+	def setTestMode(self, mode):
+		self.testing = mode
+		# create new log objects to log actions and errors
+		if self.testing > 0: # test logging
+			self.actionLog = log("test/test-autoLog.txt", "Automation Actions")
+			self.errorLog = log("test/test-errorLog.txt", "Automation Errors")
+		else: # normal logging
+			self.actionLog = log("logs/autoLog.txt", "Automation Actions")
+			self.errorLog = log("logs/errorLog.txt", "Automation Errors")
 
 	# process the xml file object
 	def parseXML(self, xmlFile):
@@ -229,23 +257,21 @@ class schedule():
 		# new events flag
 		newEvent = False
 		# priority default value
-		priority = 100
-		# Check for current show
-		for show in self.shows:
-			# process shows time info
-			day = show.find('day').get('code')
-			start = show.find('time').get('start')
-			end = show.find('time').get('end')
-			startParts = start.split(":")
-			endParts= end.split(":")
-			startMinute = (int(startParts[0]) * 60) + int(startParts[1]) - self.earlyStart
-			endMinute = (int(endParts[0]) * 60) + int(endParts[1])
+		priority = 100	
+		if self.testing == 0: # stop time sync when testing
 			# sync the time object to the current time
 			self.now.sync()
-			# check show date and time agianst current date and time  
-			if self.now.getInMinutes() >= startMinute and self.now.getInMinutes() < endMinute and self.now.checkDay(day):
-				# check show priority	
-				showPriority = int(show.find('priority').text)
+		# Check for current show	
+		for show in self.shows:
+			# process shows day, time and priority info
+			day = show.find('day').get('code')
+			startMinute = parseEventTime(show, 'start')
+			endMinute = parseEventTime(show, 'end')
+			showPriority = int(show.find('priority').text)
+			# check show date and time agianst current date and time 
+			minutesNow = self.now.getInMinutes() 
+			if minutesNow >= startMinute and minutesNow < endMinute and self.now.checkDay(day):
+				# check show priority
 				if showPriority < priority:
 					newEvent = True
 					self.currentShow = show
@@ -254,20 +280,14 @@ class schedule():
 		# Check for current playlist
 		priority = 100
 		for playlist in self.playlists:
-			# process shows time info
+			# process playlist day, time and prority info
 			day = playlist.find('day').get('code')
-			start = playlist.find('time').get('start')
-			end = playlist.find('time').get('end')
-			startParts = start.split(":")
-			endParts= end.split(":")
-			startMinute = (int(startParts[0]) * 60) + int(startParts[1])
-			endMinute = (int(endParts[0]) * 60) + int(endParts[1])
-			# sync the time object to the current time
-			self.now.sync()
-			# check showplaylist date and time agianst current date and time  
+			startMinute = parseEventTime(playlist, 'start')
+			endMinute = parseEventTime(playlist, 'end')
+			playlistPriority = int(playlist.find('priority').text)
+			# check playlist date and time agianst current date and time  
 			if self.now.getInMinutes() >= startMinute and self.now.getInMinutes() < endMinute and self.now.checkDay(day):
-				# check playlist priority	
-				playlistPriority = int(playlist.find('priority').text)
+				# check playlist priority
 				if playlistPriority < priority:
 					priority = playlistPriority
 					self.currentPlaylist = playlist
@@ -279,8 +299,6 @@ class schedule():
 			# process drop playback info
 			freq = drop.find('freq').text
 			code = drop.find('day').get('code')
-			# sync the time object to the current time
-			self.now.sync()
 			# check drop date agianst current date
 			if (self.now.getInMinutes() % int(freq)) == 0 and self.now.checkDay(code):
 				self.currentDrops.append(drop)
@@ -301,47 +319,51 @@ class schedule():
 		# if there is a scheduled show, check if show is not already playing, then play it
 		if self.currentShow is not None:
 			if self.actionLog.lastLog() != self.actionLog.makeLog(self.currentShow, ""):
-				print "Show: ", self.currentShow.get('name'), "\nTime Slot:", self.currentShow.find('time').get('start'), "-", self.currentShow.find('time').get('end')
-				# if playing something then fade out
-				if winampCtrl.status() == 1:
-					winampCtrl.fadeOut()
-				# play show, fade in and log the show
-				winampCtrl.loadplay(self.currentShow.find('file').get('path'))
-				winampCtrl.volmax()
+				if self.testing < 3:	print "Show: ", self.currentShow.get('name'), "\nTime Slot:", self.currentShow.find('time').get('start'), "-", self.currentShow.find('time').get('end')
+				# control winamp as long as not in test mode 2
+				if self.testing < 2: 
+					# if playing something then fade out
+					if winampCtrl.status() == 1:
+						winampCtrl.fadeOut()
+					# play show, fade in and log the show
+					winampCtrl.loadplay(self.currentShow.find('file').get('path'))
+					winampCtrl.volmax()
 				self.actionLog.logAction(self.currentShow, self.now)
 			
-		# if there are no current shows, the computer is idle and winamp is playing, then look for other current events
-		elif winampCtrl.status() == 1 and not idleWait or get_idle_duration() >= idleWaitTime:
+		# else if the computer is idle, then look for other current events
+		elif not idleWait or get_idle_duration() >= idleWaitTime:
 			# check if there are any current drops to play
 			if len(self.currentDrops) > 0:
 				# wait for current song to end
 				# skips if playing a stream
-				print "\nplaying drop after song"
-				self.waitforend()
-				
+				if self.testing < 3:	print "\nplaying drop after song"
+				self.waitforend()		
+
 				# play all current drops
 				for drop in self.currentDrops:
-					# make sure shuffle is on
-					if winampCtrl.getshuffle() == 0: 
-						winampCtrl.swshuffle()
-					# load the drop
-					winampCtrl.loadplay(drop.find('file').get('path'))
+					# control winamp as long as not in test mode 2
+					if self.testing < 2: 
+						# make sure shuffle is on
+						if winampCtrl.getshuffle() == 0: 
+							winampCtrl.swshuffle()
+						# load the drop
+						winampCtrl.loadplay(drop.find('file').get('path'))
 					# print drop info and log the event
-					print "\nDrop: " + drop.get('name'), " Frequency: ", drop.find('freq').text, "Min"
-					self.actionLog.logAction(drop, self.now)
+					if self.testing < 3:	print "\nDrop: " + drop.get('name'), " Frequency: ", drop.find('freq').text, "Min"	
+					self.actionLog.logAction(drop, self.now)				
 					# wait for drop to end before continuing
 					self.waitforend()
 					
 			# if there is a current playlist make sure its not already playing
-			if self.currentPlaylist is not None and self.actionLog.lastLog() != self.actionLog.makeLog(self.currentPlaylist, ""):
-				# make sure shuffle is on
-				if winampCtrl.getshuffle() == 0: winampCtrl.swshuffle()
-				print "\nPlaylist: " + self.currentPlaylist.get('name'), "\nTime Slot:", self.currentPlaylist.find('time').get('start'), "-", self.currentPlaylist.find('time').get('end')
-				winampCtrl.loadplay(self.currentPlaylist.find('file').get('path'))
-				self.actionLog.logAction(self.currentPlaylist, self.now)
-			# if no playlist or show then goto the default
-			elif self.currentPlaylist is None and self.currentShow is None:
-				self.gotoDefault()
+			if self.currentPlaylist is not None:
+				if self.actionLog.lastLog() != self.actionLog.makeLog(self.currentPlaylist, ""):
+					# control winamp as long as not in test mode 2
+					if self.testing < 2:
+						# make sure shuffle is on
+						if winampCtrl.getshuffle() == 0: winampCtrl.swshuffle()
+						winampCtrl.loadplay(self.currentPlaylist.find('file').get('path'))
+					if self.testing < 3:	print "\nPlaylist: " + self.currentPlaylist.get('name'), "\nTime Slot:", self.currentPlaylist.find('time').get('start'), "-", self.currentPlaylist.find('time').get('end')
+					self.actionLog.logAction(self.currentPlaylist, self.now)
 		
 	# when no playlist or show is scheduled and there are defaults, then randomly load one
 	def gotoDefault(self):
@@ -350,20 +372,24 @@ class schedule():
 				default = random.choice(self.defaults)
 				path = str(default.find('file').get('path'))
 				if self.actionLog.lastLog() != self.actionLog.makeLog(default, path):
-					print "\nGoing to default - ", path
+					if self.testing < 3:	print "\nGoing to default - ", path
 					self.actionLog.logAction(default, self.now, path)
-					winampCtrl.loadplay(path)
+					# control winamp as long as not in test mode 2
+					if self.testing < 2:
+						winampCtrl.loadplay(path)
 			else:
-				print "\nError no default available"
+				if self.testing < 3:	print "\nError no default available"
 				self.actionLog.logRaw("Error no default available", self.now)
 	
 	# wait for current song to end
 	def waitforend(self): 
-		left = winampCtrl.timeleft()
-		while left > 2:
+		# control winamp as long as not in test mode 2
+		if self.testing < 2:
 			left = winampCtrl.timeleft()
-		time.sleep(1)
-	
+			while left > 2:
+				left = winampCtrl.timeleft()
+			time.sleep(1)
+
 	# print out all the properties of an event
 	def printRawEvent(self, event):
 		for e in event:
@@ -389,3 +415,9 @@ class schedule():
 		if self.currentPlaylist != None: self.printRawEvent(self.currentPlaylist)
 		self.printRawEvent(self.currentDrops)
 	
+# convert times from xml object to time in minutes
+def parseEventTime(event, key):
+	# process event time info
+	time = event.find('time').get(key)
+	parts = time.split(":")
+	return (int(parts[0]) * 60) + int(parts[1])

@@ -1,0 +1,27 @@
+<schedule>
+	<show name="Test show">
+		<file path="kwhr.m3u" />
+		<day code="Wed"/>
+		<time start="22:00" end="24:00" />
+		<priority>0</priority>
+	</show>
+	<playlist name="All">
+		<file path="All.m3u" />
+		<day code="All"/>
+		<time start="00:00" end="24:00" />
+		<priority>0</priority>
+	</playlist>
+	<drop name="Midnight ID" >
+		<file path="midnight-id.m3u" />
+		<day code="All"/>
+		<freq>1440</freq>
+	</drop>
+	<drop name="Main Clips" >
+		<file path="RC.m3u" />
+		<day code="All"/>
+		<freq>30</freq>
+	</drop>
+	<default>
+		<file path="All.m3u" />
+	</default>
+</schedule>
