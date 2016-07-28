@@ -2,10 +2,15 @@
 from AutoLib import *
 
 import sys
+from shutil import copyfile
+import os
 
 # debug and display flags
 debuging = True
 display = False
+
+testLogFile = 'test/test-autoLog.txt'
+refrenceLogFile = 'test/test-autoLog-ref.txt'
 
 ### Testing Functions ###
 
@@ -63,3 +68,46 @@ def testCase(schedule, day = None, hour = None, minute = None, second = None, da
     if schedule.checkEvents():
         schedule.playCurrentEvent()
 
+# check schedule actions log against a refrence log
+def logCompare(testFile):
+    index = 0
+    # open file streams
+    with open(testFile) as testLog:
+        with open(refrenceLogFile) as refLog:  
+            # read in first lines      
+            refLine = refLog.readline()
+            testLine = testLog.readline()
+            # compare lines untill a log stream has ended
+            while refLine != "" and testLine != "":
+                index += 1
+                # check if log line are same
+                if refLine != testLine:
+                    print "Test Log not consistent with Refrence Log: Mismatch on line", index
+                    print "Reference Log - ", refLine
+                    print "Test Log - ", testLine
+
+                # read next lines from logs
+                refLine = refLog.readline()
+                testLine = testLog.readline()
+
+            # if both streams ended simultaniusly then report same length
+            if refLine == "" and testLine == "":
+                print "Logs are the same length"
+            # else report which stream ended earlier
+            elif refLine == "":
+                print "Reference Log ended before Test Log"
+            elif testLine == "":
+                print "Test Log ended before Reference Log"
+
+
+# make current log the refrence log
+def setRefrenceLog():
+    # remove old refrenceLogFile
+    try:
+        os.remove(refrenceLogFile)
+    except: pass
+    # copy logFile to new refrenceLogFile
+    try:
+        copyfile(testLogFile, refrenceLogFile)
+    except:
+        print 'Failed to Set Refrence Log!'
