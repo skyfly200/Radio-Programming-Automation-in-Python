@@ -69,32 +69,16 @@ class log(object):
 			timestamp = f.readlines()[-2][:-3]
 		return timestamp
 
-	# check if last event has ended
-	def over(self, logLine=''):
-		if logLine == '': 
-			logLine = self.lastLog()
-		logLine = str(logLine)
-		
-		# if last log was a show or playlist
-		if logLine[:4] == "show" or logLine[:8] == "playlist":
-			endTime = (logLine[-5:-4] * 60) + logLine[-2:]
-			print endTime
-			if endTime > timeTotM: return True
-			else: return False
-			
-		# if last log was a drop
-		elif logLine[:4] == "drop": 
-			return True
-			
-		# if last log was default
-		elif logLine[:7] == "default": 
-			return False
-		
-		# return true by default
-		else: return True
-	
-		# One-line file.
-		return suffix
+	# return the action of the last log in the log file
+	def lastLogAction(self):
+		action = False
+		with open(self.logPath) as f:
+			action = f.readlines()[-1]
+		return action
+
+	# compare an action against last logged action
+	def matchLog(self, compare):
+		return compare == self.lastLogAction()
 
 # struct for idle time calculation
 class LASTINPUTINFO(Structure):
@@ -318,7 +302,7 @@ class schedule():
 		
 		# if there is a scheduled show, check if show is not already playing, then play it
 		if self.currentShow is not None:
-			if self.actionLog.lastLog() != self.actionLog.makeLog(self.currentShow, ""):
+			if !self.actionLog.matchLog(self.actionLog.makeLog(self.currentShow, "")):
 				if self.testing < 3:	print "Show: ", self.currentShow.get('name'), "\nTime Slot:", self.currentShow.find('time').get('start'), "-", self.currentShow.find('time').get('end')
 				# control winamp as long as not in test mode 2
 				if self.testing < 2: 
@@ -356,7 +340,7 @@ class schedule():
 					
 			# if there is a current playlist make sure its not already playing
 			if self.currentPlaylist is not None:
-				if self.actionLog.lastLog() != self.actionLog.makeLog(self.currentPlaylist, ""):
+				if !self.actionLog.matchLog(self.actionLog.makeLog(self.currentShow, "")):
 					# control winamp as long as not in test mode 2
 					if self.testing < 2:
 						# make sure shuffle is on
