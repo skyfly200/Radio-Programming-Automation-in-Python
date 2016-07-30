@@ -1,1 +1,27 @@
 ---Automation Actions Log File---
+12:23 Sat 07/30/16 :
+drop - Main Clips < Every 1 Min > 
+12:31 Sat 07/30/16 :
+drop - Main Clips < Every 1 Min > 
+12:31 Sat 07/30/16 :
+drop - Main Clips < Every 1 Min > 
+12:31 Sat 07/30/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+12:32 Sat 07/30/16 :
+drop - Main Clips < Every 1 Min > 
+12:32 Sat 07/30/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+12:35 Sat 07/30/16 :
+drop - Main Clips < Every 5 Min > 
+12:35 Sat 07/30/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+12:40 Sat 07/30/16 :
+drop - Main Clips < Every 5 Min > 
+12:40 Sat 07/30/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 
+12:40 Sat 07/30/16 :
+Automation Started
+12:40 Sat 07/30/16 :
+drop - Main Clips < Every 5 Min > 
+12:40 Sat 07/30/16 :
+playlist - Noon-Midnight < 12:00 - 24:00 > 

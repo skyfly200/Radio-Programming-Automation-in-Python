@@ -25,6 +25,9 @@ automationSchedule = schedule(scheduleFile)
 # interval of schedule updates
 updateTime = 60 # update every hour
 
+print "Automation Started - ", automationSchedule.now.getDatetimeStr()
+automationSchedule.actionLog.logRaw("Automation Started", automationSchedule.now)
+
 try:
 	# infinite loop
 	while True:
@@ -48,8 +51,11 @@ try:
 			time.sleep(5)
 
 except KeyboardInterrupt:
-	print "Automation Exiting"
+	print "Automation Exited - ", automationSchedule.now.getDatetimeStr()
+	automationSchedule.actionLog.logRaw("Automation Exited", automationSchedule.now)
 	# delete instance lock
 	del instance
 	
-	
+except:
+	print "Automation Exited - ", automationSchedule.now.getDatetimeStr()
+	automationSchedule.actionLog.logRaw("Automation Exited", automationSchedule.now)

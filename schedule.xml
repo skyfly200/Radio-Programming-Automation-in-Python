@@ -44,7 +44,7 @@
 	<drop name="Main Clips" >
 		<file path="RC.m3u" />
 		<day code="All"/>
-		<freq>1</freq>
+		<freq>5</freq>
 	</drop>
 	<default>
 		<file path="animals.m3u" />

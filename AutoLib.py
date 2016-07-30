@@ -302,7 +302,7 @@ class schedule():
 		
 		# if there is a scheduled show, check if show is not already playing, then play it
 		if self.currentShow is not None:
-			if !self.actionLog.matchLog(self.actionLog.makeLog(self.currentShow, "")):
+			if not self.actionLog.matchLog(self.actionLog.makeLog(self.currentShow, "")):
 				if self.testing < 3:	print "Show: ", self.currentShow.get('name'), "\nTime Slot:", self.currentShow.find('time').get('start'), "-", self.currentShow.find('time').get('end')
 				# control winamp as long as not in test mode 2
 				if self.testing < 2: 
@@ -340,7 +340,7 @@ class schedule():
 					
 			# if there is a current playlist make sure its not already playing
 			if self.currentPlaylist is not None:
-				if !self.actionLog.matchLog(self.actionLog.makeLog(self.currentShow, "")):
+				if not self.actionLog.matchLog(self.actionLog.makeLog(self.currentPlaylist, "")):
 					# control winamp as long as not in test mode 2
 					if self.testing < 2:
 						# make sure shuffle is on
